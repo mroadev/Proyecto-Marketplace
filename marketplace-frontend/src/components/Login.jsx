@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, usuario } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // Redirigir si el usuario ya está autenticado
+  useEffect(() => {
+    if (usuario) {
+      navigate("/"); // Redirige al home solo cuando usuario cambia
+    }
+  }, [usuario, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica de inicio de sesión, como validar los campos o hacer la autenticación
-    console.log("Correo:", email);
-    console.log("Contraseña:", password);
+
+    // Simulación de autenticación (esto se reemplazará con una API en el futuro)
+    const usuarioAutenticado = login(email, password);
+
+    if (!usuarioAutenticado) {
+      alert("Credenciales incorrectas. Intente de nuevo.");
+    }
+
   };
 
   return (
@@ -76,7 +91,7 @@ const Login = () => {
 
           {/* Botón Volver */}
           <div className="d-grid gap-2 justify-content-center">
-            <Link to="/" className="btn btn-outline-secondary px-4">
+            <Link to="/"  className="btn btn-outline-secondary px-4">
               Volver
             </Link>
           </div>          

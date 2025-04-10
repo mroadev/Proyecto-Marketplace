@@ -3,14 +3,19 @@ import { useParams, Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { products } from "../data/products"; // Importamos los productos
 import { formatPrice } from "../utils/formatPrice"; // Importamos la función de formateo
+import { CarritoContext } from "../context/CarritoContext";
+import { useContext } from "react";
 
 const DetalleProducto = () => {
+  const { agregarAlCarrito } = useContext(CarritoContext);
+
   const { id } = useParams(); // Obtener el id desde la URL
   const producto = products.find((p) => p.id === parseInt(id)); // Buscar producto
 
   if (!producto) {
     return <h2 className="text-center mt-5">Producto no encontrado</h2>;
   }
+
 
   return (
     <div className="container d-flex justify-content-center mt-5 mb-5">
@@ -61,7 +66,7 @@ const DetalleProducto = () => {
             <p className="text-end">{producto.date}</p>
 
             {/* Botón Agregar al carrito */}
-            <button className="btn btn-success w-100 mt-3">Agregar al carrito</button>
+            <button className="btn btn-success w-100 mt-3" onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
           </div>
         </div>
       </div>

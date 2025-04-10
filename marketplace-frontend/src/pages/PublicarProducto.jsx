@@ -40,7 +40,7 @@ const PublicarProducto = () => {
     <div className="container d-flex justify-content-center mt-5 mb-5">
       <div className="card w-75 shadow-lg p-3">
         
-        {/* 🔹 Encabezado */}
+        {/* Encabezado */}
         <div className="bg-light p-3 mb-3 border rounded shadow-sm d-flex align-items-center">
             <Link to="/" className="text-primary text-decoration-none me-2">Volver</Link>
             <span className="text-muted fw-bold">| Publicar {'>'} Producto</span>
@@ -48,7 +48,7 @@ const PublicarProducto = () => {
 
         {/* Contenido */}
         <div className="card-body d-flex">
-          {/* 📸 Sub Card Izquierda (Imágenes) */}
+          {/* Sub Card Izquierda (Imágenes) */}
           <div className="card flex-grow-1 p-3 me-3">
             <div className="row">
                 {/* Imágenes pequeñas */}
@@ -79,7 +79,7 @@ const PublicarProducto = () => {
             </button>
           </div>
 
-          {/* 📝 Sub Card Derecha (Formulario) */}
+          {/* Sub Card Derecha (Formulario) */}
           <div className="card flex-grow-1 p-3 position-relative">
             {/* Formulario */}
             <form onSubmit={handlePublicar}>
