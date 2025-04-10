@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from "../context/AuthContext";
 import { Link } from 'react-router-dom';
 import ConfirmarRegistroModal from "./ConfirmarRegistroModal";
 
 const CrearCuenta = () => {
+  const { registrarUsuario } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
-
-  // Usamos useState para manejar el estado de los campos
   const [formData, setFormData] = useState({
     nombre: '',
     telefono: '',
-    correo: '',
+    email: '',
     direccion: '',
     contrasena: '',
     repetirContrasena: '',
@@ -17,6 +17,10 @@ const CrearCuenta = () => {
 
   // Manejador para los cambios en los inputs
   const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleChange1 = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -27,13 +31,25 @@ const CrearCuenta = () => {
   // Manejador para el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowModal(true); // Muestra el modal al registrarse
-    // Aquí se puedes agregar la lógica de registro, por ejemplo:
-    console.log('Datos del formulario:', formData);
-  };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+    if (formData.contrasena !== formData.repetirContrasena) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // Aquí se agrega la lógica de registro:
+    const usuarioData = {
+      nombre: formData.nombre,
+      email: formData.email,
+      contrasena: formData.contrasena,
+      telefono: formData.telefono || null,
+      direccion: formData.direccion || null,
+      rol: "Cliente",
+      fecha_registro: new Date().toISOString(),
+    };
+
+    registrarUsuario(usuarioData);
+
     setShowModal(true); // Muestra el modal al registrarse
   };
 
@@ -90,9 +106,9 @@ const CrearCuenta = () => {
               <input
                 type="email"
                 className="form-control"
-                id="correo"
-                name="correo"
-                value={formData.correo}
+                id="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
@@ -157,7 +173,7 @@ const CrearCuenta = () => {
           </form>
           {/* Botón Volver */}
           <div className="d-grid gap-2 justify-content-center">
-            <Link to="/" className="btn btn-outline-secondary px-4">
+            <Link to="/" className="btn btn-outline-secondary px-4" >
                 Volver
             </Link>
           </div>

@@ -1,6 +1,6 @@
 
 export const categories = [
-    "Todos los productos", // Nueva opción para ver todos los productos
+    "Todos los productos", 
     "Electrónica",
     "Ropa",
     "Hogar",

@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
 
 const ConfirmarRegistroModal = ({ show, onClose }) => {
+  const navigate = useNavigate(); // Hook para navegar entre páginas
+
+  const handleVolver = () => {
+    onClose();  // Cierra el modal
+    navigate("/"); // Redirige a la ruta "/"
+  };
+
   return (
     <div className={`modal fade ${show ? "show d-block" : "d-none"}`} tabIndex="-1">
       <div className="modal-dialog modal-dialog-centered">
@@ -17,7 +25,7 @@ const ConfirmarRegistroModal = ({ show, onClose }) => {
             <h4>Te has registrado exitosamente</h4>
           </div>
           <div className="modal-footer border-0 d-flex justify-content-center">
-            <button className="btn btn-outline-secondary w-auto" onClick={onClose}>
+            <button className="btn btn-outline-secondary w-auto" onClick={handleVolver}>
               Volver
             </button>
           </div>
